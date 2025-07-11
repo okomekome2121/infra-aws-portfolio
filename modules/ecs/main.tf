@@ -1,5 +1,4 @@
-# main.tf（module化せず1ファイルにまとめたシンプル例）
-resource "aws_ecs_cluster" "main" {
+resource "aws_ecs_cluster" "test_ecs" {
   name = "example-cluster"
 }
 
@@ -23,7 +22,7 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
-resource "aws_ecs_task_definition" "main" {
+resource "aws_ecs_task_definition" "test_ecs" {
   family                   = "example-task"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
@@ -43,36 +42,16 @@ resource "aws_ecs_task_definition" "main" {
   }])
 }
 
-# resource "aws_security_group" "ecs_service" {
-#   name        = "ecs-service-sg"
-#   description = "Allow HTTP"
-#   vpc_id      = "<YOUR_VPC_ID>"
-
-#   ingress {
-#     from_port   = 80
-#     to_port     = 80
-#     protocol    = "tcp"
-#     cidr_blocks = ["0.0.0.0/0"]
-#   }
-
-#   egress {
-#     from_port   = 0
-#     to_port     = 0
-#     protocol    = "-1"
-#     cidr_blocks = ["0.0.0.0/0"]
-#   }
-# }
-
-resource "aws_ecs_service" "main" {
+resource "aws_ecs_service" "test_ecs" {
   name            = "example-service"
-  cluster         = aws_ecs_cluster.main.id
-  task_definition = aws_ecs_task_definition.main.arn
+  cluster         = aws_ecs_cluster.test_ecs.id
+  task_definition = aws_ecs_task_definition.test_ecs.arn
   launch_type     = "FARGATE"
   desired_count   = 2
 
   network_configuration {
-    subnets         = [for subnet in var.subnet_ids : subnet]
-    security_groups = [aws_security_group.ecs_service.id]
+    subnets         = [for subnet in var.subnet_id : subnet]
+    #security_groups = [aws_security_group.ecs_service.id]
     assign_public_ip = true
   }
 

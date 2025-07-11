@@ -14,6 +14,12 @@ variable "ingress_cidr_blocks" {
   default     = ["0.0.0.0/0"]
 }
 
+variable "egress_cidr_blocks" {
+  description = "Allowed CIDR blocks for ALB egress"
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
+}
+
 variable "environment" {
   description = "Environment (e.g. dev, prod)"
   type        = string
