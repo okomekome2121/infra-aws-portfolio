@@ -16,3 +16,5 @@ task_role_arn      = "arn:aws:iam::123456789012:role/ecsTaskRole"
 container_image    = "nginx:latest"
 #subnet_ids         = ["subnet-abc123", "subnet-def456"]
 #security_group_ids = ["sg-xxxxxx"]
+
+# ALB Configuration

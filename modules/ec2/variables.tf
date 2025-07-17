@@ -48,3 +48,7 @@ variable "tags" {
   default     = {}
 }
 
+# variable "vpc_id" {
+#   description = "VPC ID where the EC2 instance will be launched"
+#   type        = string
+# }

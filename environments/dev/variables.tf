@@ -59,3 +59,13 @@ variable "container_image" {
   type        = string
 }
 
+variable "elb_target_ips" {
+  description = "List of IP addresses to register to the elb target group"
+  type        = list(string)
+  default     = []
+}
+
+# variable "vpc_id" {
+#   description = "VPC ID"
+#   type        = string
+# }
