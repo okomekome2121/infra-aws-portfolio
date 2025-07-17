@@ -1,5 +1,5 @@
 variable "name" {
-  description = "Name of the ALB"
+  description = "Name of the elb"
   type        = string
 }
 
@@ -71,7 +71,6 @@ variable "environment" {
   type        = string
 }
 
-# variable "aws_lb_security_group_ids" {
-#   description = "List of security group IDs to attach to ALB"
-#   type        = list(string)
-# }
+variable "instance_id" {
+  type = string
+}

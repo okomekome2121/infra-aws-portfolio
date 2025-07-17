@@ -39,17 +39,19 @@ module "ecs" {
   environment        = "dev"
 }
 
-module "alb" {
-  source                      = "../../modules/alb"
-  name                        = "myapp-alb"
+module "elb" {
+  source                      = "../../modules/elb"
+  name                        = "myapp-elb"
   vpc_id                      = module.vpc.vpc_id
+  instance_id = module.ec2.instance_id
   subnet_ids = [
-    module.vpc.public_subnet_id[0],
-    module.vpc.public_subnet_id[1]
+    module.vpc.public_subnet_ids[0],
+    module.vpc.public_subnet_ids[1]
   ]
-  security_group_ids          = [module.security_group.alb_sg_id]
+  security_group_ids          = [module.security_group.elb_sg_id]
   environment                 = "dev"
-  enable_deletion_protection = false
+  enable_deletion_protection  = false
+  target_ips                  = var.elb_target_ips
 }
 
 
