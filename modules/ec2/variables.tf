@@ -9,12 +9,6 @@ variable "ami_id" {
   type        = string
 }
 
-# variable "vpc_id" {
-#   description = "VPC ID"
-#   type        = string
-  
-# }
-
 variable "instance_type" {
   description = "EC2 instance type"
   type        = string
@@ -47,8 +41,3 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
-
-# variable "vpc_id" {
-#   description = "VPC ID where the EC2 instance will be launched"
-#   type        = string
-# }

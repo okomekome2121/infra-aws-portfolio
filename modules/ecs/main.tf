@@ -3,7 +3,6 @@ resource "aws_ecs_cluster" "test_ecs" {
 }
 
 resource "aws_iam_role" "ecs_task_execution_role" {
-  #name = "ecsTaskExecutionRole"
   name = "ecs-task-execution-role-${var.environment}"
 
   assume_role_policy = jsonencode({
@@ -52,7 +51,6 @@ resource "aws_ecs_service" "test_ecs" {
 
   network_configuration {
     subnets         = [for subnet in var.subnet_id : subnet]
-    #security_groups = [aws_security_group.ecs_service.id]
     assign_public_ip = true
   }
 

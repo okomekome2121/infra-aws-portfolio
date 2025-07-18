@@ -33,12 +33,6 @@ variable "gateway_id" {
   default     = null
 }
 
-# variable "name" {
-#   description = "Base name to apply to resources, such as Name tags."
-#   type        = string
-#   default     = null
-# }
-
 variable "name_prefix" {
   description = "Prefix added to resource names (e.g., 'dev-', 'prod-')."
   type        = string
