@@ -1,6 +1,6 @@
-# output "alb_dns_name" {
+# output "elb_dns_name" {
 #   value       = aws_lb.dev_test.dns_name
-#   description = "DNS name of the ALB"
+#   description = "DNS name of the elb"
 # }
 
 output "target_group_arn" {
@@ -8,7 +8,7 @@ output "target_group_arn" {
   description = "ARN of the target group"
 }
 
-output "alb_arn" {
+output "elb_arn" {
   value       = aws_lb.dev_test.arn
-  description = "ARN of the ALB"
+  description = "ARN of the elb"
 }

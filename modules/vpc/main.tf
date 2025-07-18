@@ -31,7 +31,7 @@ resource "aws_route_table" "route" {
 resource "aws_subnet" "public1" {
   vpc_id                  = aws_vpc.vpc.id
   cidr_block              = var.public_subnet_cidrs[0]
-  availability_zone       = var.availability_zones
+  availability_zone       = var.availability_zones[0]
   map_public_ip_on_launch = true
 
   tags = {
@@ -42,7 +42,7 @@ resource "aws_subnet" "public1" {
 resource "aws_subnet" "public2" {
   vpc_id                  = aws_vpc.vpc.id
   cidr_block              = var.public_subnet_cidrs[1]
-  availability_zone       = var.availability_zones
+  availability_zone       = var.availability_zones[1]
   map_public_ip_on_launch = true
 
   tags = {
@@ -54,7 +54,7 @@ resource "aws_subnet" "public2" {
 resource "aws_subnet" "private1" {
   vpc_id                  = aws_vpc.vpc.id
   cidr_block              = var.private_subnet_cidrs[0]
-  availability_zone       = var.availability_zones
+  availability_zone       = var.availability_zones[0]
   map_public_ip_on_launch = true
 
   tags = {
@@ -65,7 +65,7 @@ resource "aws_subnet" "private1" {
 resource "aws_subnet" "private2" {
   vpc_id                  = aws_vpc.vpc.id
   cidr_block              = var.private_subnet_cidrs[1]
-  availability_zone       = var.availability_zones
+  availability_zone       = var.availability_zones[1]
   map_public_ip_on_launch = true
 
   tags = {
@@ -77,4 +77,5 @@ resource "aws_route_table_association" "public1" {
   subnet_id      = aws_subnet.public1.id
   route_table_id = aws_route_table.route.id
 }
+
 

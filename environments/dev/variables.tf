@@ -5,11 +5,12 @@ variable "region" {
 variable "availability_zones" {
   description = "List of availability zones"
   type        = list(string)
+  #default     = ["ap-northeast-1a", "ap-northeast-1c"]
 }
 
 variable "cidr_block" {
   type        = string
-  description = "VPCのCIDRブロック"   
+  description = "VPCのCIDRブロック"
 }
 
 variable "public_subnet_cidrs" {
@@ -25,7 +26,7 @@ variable "private_subnet_cidrs" {
 variable "ami_id" {
   description = "AMI ID to use for the EC2 instance"
   type        = string
-} 
+}
 
 variable "instance_type" {
   description = "EC2 instance type"
