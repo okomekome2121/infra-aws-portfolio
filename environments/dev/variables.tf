@@ -1,13 +1,20 @@
+# Terraform variables for the development environment
 variable "region" {
   default = "ap-northeast-1"
+}
+
+variable "environment" {
+  description = "The environment for which the resources are being created (e.g., dev, prod)"
+  type        = string
+  default     = "dev"
 }
 
 variable "availability_zones" {
   description = "List of availability zones"
   type        = list(string)
-  #default     = ["ap-northeast-1a", "ap-northeast-1c"]
 }
 
+# VPC Configuration
 variable "cidr_block" {
   type        = string
   description = "VPCのCIDRブロック"
@@ -23,6 +30,7 @@ variable "private_subnet_cidrs" {
   type        = list(string)
 }
 
+# EC2 Instance Configuration
 variable "ami_id" {
   description = "AMI ID to use for the EC2 instance"
   type        = string
@@ -39,12 +47,7 @@ variable "key_name" {
   type        = string
 }
 
-variable "environment" {
-  description = "The environment for which the resources are being created (e.g., dev, prod)"
-  type        = string
-  default     = "dev"
-}
-
+# ECS Configuration
 variable "execution_role_arn" {
   description = "ARN of the ECS task execution role"
   type        = string
@@ -60,13 +63,9 @@ variable "container_image" {
   type        = string
 }
 
+# ELB Configuration
 variable "elb_target_ips" {
   description = "List of IP addresses to register to the elb target group"
   type        = list(string)
   default     = []
 }
-
-# variable "vpc_id" {
-#   description = "VPC ID"
-#   type        = string
-# }
