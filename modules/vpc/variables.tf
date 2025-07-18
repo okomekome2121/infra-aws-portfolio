@@ -11,7 +11,7 @@ variable "cidr_block" {
 
 variable "availability_zones" {
   description = "The availability zone for the subnet."
-  type        = string
+  type        = list(string)
   default     = null
 }
 
