@@ -1,0 +1,48 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Notify Gmail when ECS Task is stopped
+
+Parameters:
+  EmailAddress:
+    Type: String
+    Description: okomekome.2121@gmail.com
+
+Resources:
+
+  SNSTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: ecs-stop-notification-topic
+
+  ECSStoppedRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: ecs-task-stopped-rule
+      Description: Trigger when ECS task is STOPPED
+      EventPattern:
+        source:
+          - "aws.ecs"
+        detail-type:
+          - "ECS Task State Change"
+        detail:
+          lastStatus:
+            - "STOPPED"
+      State: ENABLED
+      Targets:
+        - Id: "SendToSNS"
+          Arn: !Ref SNSTopic
+
+  EmailSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      TopicArn: !Ref SNSTopic
+      Protocol: email
+      Endpoint: !Ref EmailAddress
+
+Outputs:
+  NotificationTopicArn:
+    Description: SNSトピックARN
+    Value: !Ref SNSTopic
+
+  RuleName:
+    Description: EventBridgeルール名
+    Value: !Ref ECSStoppedRule
