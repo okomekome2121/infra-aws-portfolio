@@ -1,0 +1,48 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Notify Gmail when EC2 instance is stopped
+
+Parameters:
+  EmailAddress:
+    Type: String
+    Description: okomekome.2121@gmail.com
+
+Resources:
+
+  SNSTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: ec2-stop-notification-topic
+
+  EmailSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      TopicArn: !Ref SNSTopic
+      Protocol: email
+      Endpoint: !Ref EmailAddress
+
+  EC2StopRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: ec2-instance-stopped-rule
+      Description: Notify when EC2 instance state changes to 'stopped'
+      State: ENABLED
+      EventPattern:
+        source:
+          - "aws.ec2"
+        detail-type:
+          - "EC2 Instance State-change Notification"
+        detail:
+          state:
+            - "stopped"
+      Targets:
+        - Id: "SendToSNS"
+          Arn: !Ref SNSTopic
+
+Outputs:
+  TopicArn:
+    Description: SNSトピックARN
+    Value: !Ref SNSTopic
+
+  RuleName:
+    Description: EventBridgeルール名
+    Value: !Ref EC2StopRule
