@@ -12,8 +12,8 @@ module "vpc" {
 # s3 module
 module "s3" {
   source      = "../../modules/s3"
-  bucket_name = "myproject-logs-dev"
-  environment = "dev"
+  bucket_name = var.bucket_name
+  environment = var.environment
 }
 
 # SG module
@@ -30,9 +30,9 @@ module "ec2" {
   ami_id        = var.ami_id
   instance_type = var.instance_type
   key_name      = var.key_name 
-  subnet_id          = module.vpc.public_subnet_ids[0]
+  subnet_id          = module.vpc.private_subnet_ids[0]
   security_group_ids = [module.security_group.ec2_sg_id]
-  environment        = "dev"
+  #environment        = "dev"
 }
 
 # ECS module
@@ -42,7 +42,7 @@ module "ecs" {
   task_role_arn      = var.task_role_arn
   container_image    = var.container_image
   subnet_id          = module.vpc.public_subnet_ids
-  environment = "dev"
+  #environment = "dev"
 }
 
 # ELB module
@@ -56,9 +56,13 @@ module "elb" {
     module.vpc.public_subnet_ids[1]
   ]
   security_group_ids         = [module.security_group.elb_sg_id]
-  environment                = "dev"
+  #environment                = "dev"
   enable_deletion_protection = false
   target_ips                 = var.elb_target_ips
 }
 
-
+module "sns" {
+  source            = "../../modules/sns"
+  notification_email = var.notification_email
+  # instance_ids = []  # 全EC2監視（デフォルト）
+}

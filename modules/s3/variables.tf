@@ -1,10 +1,11 @@
-variable "bucket_name" {
-  description = "The name of the S3 bucket"
+variable "environment" {
+  description = "Environment tag"
   type        = string
+  default     = "dev"
 }
 
-variable "environment" {
-  description = "The deployment environment (e.g., dev, prod)"
+variable "bucket_name" {
+  description = "The name of the S3 bucket"
   type        = string
 }
 
