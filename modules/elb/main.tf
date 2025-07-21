@@ -1,5 +1,5 @@
 resource "aws_lb" "dev_test" {
-  name               = var.name
+  name               = "${var.environment}-test"
   internal           = var.internal
   load_balancer_type = "application"
   security_groups    = var.security_group_ids
@@ -8,13 +8,13 @@ resource "aws_lb" "dev_test" {
   enable_deletion_protection = var.enable_deletion_protection
 
   tags = {
-    Name        = var.name
+    Name        = "${var.environment}-test"
     Environment = var.environment
   }
 }
 
 resource "aws_lb_target_group" "dev_test" {
-  name        = "${var.name}-tg"
+  name        = "${var.environment}-test-tg"
   port        = var.target_port
   protocol    = var.target_protocol
   vpc_id      = var.vpc_id
@@ -31,7 +31,7 @@ resource "aws_lb_target_group" "dev_test" {
   }
 
   tags = {
-    Name        = "${var.name}-tg"
+    Name        = "${var.environment}-test-tg"
     Environment = var.environment
   }
 }

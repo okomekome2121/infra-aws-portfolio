@@ -4,7 +4,7 @@ variable "region" {
 }
 
 variable "environment" {
-  description = "The environment for which the resources are being created (e.g., dev, prod)"
+  description = "The environment for which the resources are being created"
   type        = string
   default     = "dev"
 }
@@ -68,4 +68,18 @@ variable "elb_target_ips" {
   description = "List of IP addresses to register to the elb target group"
   type        = list(string)
   default     = []
+}
+
+# SNS Configuration
+variable "notification_email" {
+  type        = string
+  description = "Email to receive EC2 stop alerts (Gmail OK)."
+  default     = "okomekome.2121@gmail.com"
+}
+
+# S3 Configuration
+variable "s3_bucket_name" {
+  description = "Name of the S3 bucket for logs"
+  type        = string
+  default     = "myproject-logs-dev"
 }

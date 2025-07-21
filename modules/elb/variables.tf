@@ -1,3 +1,9 @@
+variable "environment" {
+  description = "Environment tag (e.g. dev, prod)"
+  type        = string
+  default     = "dev"
+}
+
 variable "name" {
   description = "Name of the elb"
   type        = string
@@ -64,11 +70,6 @@ variable "health_check_protocol" {
   description = "Health check protocol"
   type        = string
   default     = "HTTP"
-}
-
-variable "environment" {
-  description = "Environment tag (e.g. dev, prod)"
-  type        = string
 }
 
 variable "instance_id" {
