@@ -2,7 +2,7 @@ locals {
   instance_name = "${var.environment}-test"
 }
 
-resource "aws_instance" "dev-test" {
+resource "aws_instance" "default" {
   ami                         = var.ami_id
   instance_type               = var.instance_type
   subnet_id                   = var.subnet_id

@@ -1,7 +1,6 @@
 variable "environment" {
-  description = "Environment tag (e.g. dev, prod)"
+  description = "Environment tag"
   type        = string
-  default     = "dev"
 }
 
 variable "name" {

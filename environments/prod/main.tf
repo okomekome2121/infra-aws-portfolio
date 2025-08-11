@@ -1,4 +1,4 @@
-# Terraform configuration for the development environment
+# Terraform configuration for the production environment
 
 # vpc module
 module "vpc" {
@@ -21,18 +21,19 @@ module "security_group" {
   source      = "../../modules/security_group"
   name        = "myapp"
   vpc_id      = module.vpc.vpc_id
-  environment = "dev"
+  environment = "prod"
 }
 
 # EC2 module
 module "ec2" {
   source        = "../../modules/ec2"
+  environment = var.environment
   ami_id        = var.ami_id
   instance_type = var.instance_type
   key_name      = var.key_name 
   subnet_id          = module.vpc.private_subnet_ids[0]
   security_group_ids = [module.security_group.ec2_sg_id]
-  #environment        = "dev"
+  #environment        = "prod"
 }
 
 # ECS module
@@ -49,6 +50,7 @@ module "ecs" {
 module "elb" {
   source      = "../../modules/elb"
   name        = "myapp-elb"
+  environment =  var.environment
   vpc_id      = module.vpc.vpc_id
   instance_id = module.ec2.instance_id
   subnet_ids = [
@@ -56,7 +58,7 @@ module "elb" {
     module.vpc.public_subnet_ids[1]
   ]
   security_group_ids         = [module.security_group.elb_sg_id]
-  #environment                = "dev"
+  #environment                = "prod"
   enable_deletion_protection = false
   target_ips                 = var.elb_target_ips
 }
@@ -64,5 +66,6 @@ module "elb" {
 module "sns" {
   source            = "../../modules/sns"
   notification_email = var.notification_email
-  # instance_ids = []  # 全EC2監視（デフォルト）
+  environment        = var.environment
+  name_suffix        = var.name_suffix
 }

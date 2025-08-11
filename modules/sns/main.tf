@@ -1,17 +1,19 @@
 # SNS Topic
-resource "aws_sns_topic" "dev-test" {
-  name = var.topic_name
+resource "aws_sns_topic" "default" {
+  name = local.topic_name
 }
 
 # Email Subscription
 resource "aws_sns_topic_subscription" "email" {
-  topic_arn = aws_sns_topic.dev-test.arn
+  topic_arn = aws_sns_topic.default.arn
   protocol  = "email"
   endpoint  = var.notification_email
 }
 
 # Event pattern: 全EC2 or instance_ids指定
 locals {
+  # SNS topic name
+  topic_name = "${var.environment}-${var.name_suffix}"
   # Base pattern
   event_pattern_base = {
     "source"      = ["aws.ec2"]
@@ -44,7 +46,7 @@ resource "aws_cloudwatch_event_rule" "ec2_stopped" {
 resource "aws_cloudwatch_event_target" "sns" {
   rule      = aws_cloudwatch_event_rule.ec2_stopped.name
   target_id = "SendToSNS"
-  arn       = aws_sns_topic.dev-test.arn
+  arn       = aws_sns_topic.default.arn
 }
 
 # Allow EventBridge to publish to SNS
@@ -58,11 +60,11 @@ data "aws_iam_policy_document" "sns_policy" {
       type        = "Service"
       identifiers = ["events.amazonaws.com"]
     }
-    resources = [aws_sns_topic.dev-test.arn] 
+    resources = [aws_sns_topic.default.arn] 
   }
 }
 
-resource "aws_sns_topic_policy" "dev-test" {
-  arn    = aws_sns_topic.dev-test.arn
+resource "aws_sns_topic_policy" "default" {
+  arn    = aws_sns_topic.default.arn
   policy = data.aws_iam_policy_document.sns_policy.json
 }
