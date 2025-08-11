@@ -21,7 +21,7 @@ variable "egress_cidr_blocks" {
 }
 
 variable "environment" {
-  description = "Environment (e.g. dev, prod)"
+  description = "Environment tag"
   type        = string
 }
 

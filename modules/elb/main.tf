@@ -1,4 +1,4 @@
-resource "aws_lb" "dev_test" {
+resource "aws_lb" "default" {
   name               = "${var.environment}-test"
   internal           = var.internal
   load_balancer_type = "application"
@@ -13,7 +13,7 @@ resource "aws_lb" "dev_test" {
   }
 }
 
-resource "aws_lb_target_group" "dev_test" {
+resource "aws_lb_target_group" "default" {
   name        = "${var.environment}-test-tg"
   port        = var.target_port
   protocol    = var.target_protocol
@@ -37,18 +37,18 @@ resource "aws_lb_target_group" "dev_test" {
 }
 
 resource "aws_lb_target_group_attachment" "test_target_ec2" {
-  target_group_arn = aws_lb_target_group.dev_test.arn
+  target_group_arn = aws_lb_target_group.default.arn
   target_id        = var.instance_id
 }
 
 resource "aws_lb_listener" "http" {
-  load_balancer_arn = aws_lb.dev_test.arn
+  load_balancer_arn = aws_lb.default.arn
   port              = 80
   protocol          = "HTTP"
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.dev_test.arn
+    target_group_arn = aws_lb_target_group.default.arn
   }
 }
 

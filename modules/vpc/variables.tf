@@ -34,7 +34,7 @@ variable "gateway_id" {
 }
 
 variable "name_prefix" {
-  description = "Prefix added to resource names (e.g., 'dev-', 'prod-')."
+  description = "Prefix added to resource names."
   type        = string
-  default     = "dev"
+  default     = null
 }

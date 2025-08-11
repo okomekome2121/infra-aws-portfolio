@@ -1,4 +1,4 @@
-# Terraform variables for the development environment
+# Terraform variables for the production environment
 variable "region" {
   default = "ap-northeast-1"
 }
@@ -6,7 +6,7 @@ variable "region" {
 variable "environment" {
   description = "The environment for which the resources are being created"
   type        = string
-  default     = "dev"
+  default     = "prod"
 }
 
 variable "availability_zones" {
@@ -77,16 +77,22 @@ variable "notification_email" {
   default     = "okomekome.2121@gmail.com"
 }
 
-# SNS Topic Configuration
 variable "topic_name" {
-  description = "SNS topic name."
+  description = "SNS topic name for notifications"
   type        = string
-  #default     = "ec2-stop-alerts"
+  default     = "prod-test"
+}
+
+variable "name_suffix" {
+  description = "Resource name suffix (e.g., test)"
+  type        = string
+  default     = "prod"
+  
 }
 
 # S3 Configuration
 variable "bucket_name" {
   description = "Name of the S3 bucket for logs"
   type        = string
-  default     = "myproject-logs-dev"
+  default     = "myproject-logs-prod"
 }

@@ -1,3 +1,13 @@
+variable "environment" {
+  description = "Environment Name"
+  type        = string
+}
+
+variable "name_suffix" {
+  description = "resource name suffix（ex: test）"
+  type        = string
+}
+
 variable "notification_email" {
   description = "Email address (Gmail ok) to receive EC2 stopped notifications."
   type        = string
