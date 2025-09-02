@@ -6,7 +6,6 @@ variable "region" {
 variable "environment" {
   description = "The environment for which the resources are being created"
   type        = string
-  default     = "dev"
 }
 
 variable "availability_zones" {
@@ -70,18 +69,23 @@ variable "elb_target_ips" {
   default     = []
 }
 
-# SNS Configuration
-variable "notification_email" {
-  type        = string
-  description = "Email to receive EC2 stop alerts (Gmail OK)."
-  default     = "okomekome.2121@gmail.com"
-}
+## SNS Configuration
+# variable "notification_email" {
+#   type        = string
+#   description = "Email to receive EC2 stop alerts (Gmail OK)."
+#   default     = "okomekome.2121@gmail.com"
+# }
 
-# SNS Topic Configuration
-variable "topic_name" {
-  description = "SNS topic name."
+# variable "topic_name" {
+#   description = "SNS topic name."
+#   type        = string
+#   #default     = "ec2-stop-alerts"
+# }
+
+variable "name_suffix" {
+  description = "Resource name suffix (e.g., test)"
   type        = string
-  #default     = "ec2-stop-alerts"
+  default     = "test"
 }
 
 # S3 Configuration

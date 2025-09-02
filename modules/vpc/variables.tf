@@ -38,3 +38,9 @@ variable "name_prefix" {
   type        = string
   default     = null
 }
+
+variable "destination_cidr_block" {
+  description = "The destination CIDR block for the route."
+  type        = string
+  default     = "0.0.0.0/0"
+}
