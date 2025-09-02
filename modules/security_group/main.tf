@@ -10,6 +10,13 @@ resource "aws_security_group" "alb_sg" {
     cidr_blocks = var.ingress_cidr_blocks
   }
 
+  ingress {
+    protocol    = "tcp"
+    from_port   = 443
+    to_port     = 443
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   egress {
     from_port   = 0
     to_port     = 0

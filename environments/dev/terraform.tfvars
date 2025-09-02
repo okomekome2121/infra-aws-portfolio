@@ -13,10 +13,10 @@ instance_type = "t3.micro"
 key_name      = "test_okome_ec2"
 
 # ECS Configuration
-execution_role_arn = "arn:aws:iam::123456789012:role/ecsExecutionRole"
-task_role_arn      = "arn:aws:iam::123456789012:role/ecsTaskRole"
+execution_role_arn = "arn:aws:iam::617212483723:role/aws-service-role/ecs.amazonaws.com/AWSServiceRoleForECS"
+task_role_arn      = "arn:aws:iam::617212483723:role/ecsTaskExecutionRole"
 container_image    = "nginx:latest"
 
 # SNS Configuration
-topic_name  = "dev-test"
-name_suffix = "test"
+#topic_name  = "dev-test"
+# name_suffix = "test"

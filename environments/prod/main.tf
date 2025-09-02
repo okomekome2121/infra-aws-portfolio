@@ -7,6 +7,7 @@ module "vpc" {
   cidr_block           = var.cidr_block
   public_subnet_cidrs  = var.public_subnet_cidrs
   private_subnet_cidrs = var.private_subnet_cidrs
+  name_prefix          = var.environment
 }
 
 # s3 module
@@ -33,7 +34,6 @@ module "ec2" {
   key_name      = var.key_name 
   subnet_id          = module.vpc.private_subnet_ids[0]
   security_group_ids = [module.security_group.ec2_sg_id]
-  #environment        = "prod"
 }
 
 # ECS module
@@ -58,7 +58,6 @@ module "elb" {
     module.vpc.public_subnet_ids[1]
   ]
   security_group_ids         = [module.security_group.elb_sg_id]
-  #environment                = "prod"
   enable_deletion_protection = false
   target_ips                 = var.elb_target_ips
 }

@@ -6,7 +6,6 @@ variable "region" {
 variable "environment" {
   description = "The environment for which the resources are being created"
   type        = string
-  default     = "prod"
 }
 
 variable "availability_zones" {
@@ -86,8 +85,7 @@ variable "topic_name" {
 variable "name_suffix" {
   description = "Resource name suffix (e.g., test)"
   type        = string
-  default     = "prod"
-  
+  default     = "test"
 }
 
 # S3 Configuration
