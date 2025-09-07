@@ -18,9 +18,15 @@ output "gateway_id" {
   value       = aws_internet_gateway.igw.id
 }
 
-output "route_table_id" {
-  description = "Route Table ID"
-  value       = aws_route_table.route.id
+output "route_table_public_id" {
+  description = "Route Table public ID"
+  value       = aws_route_table.public.id
+  
+}
+
+output "route_table_private_id" {
+  description = "Route Table provate ID"
+  value       = aws_route_table.private.id
   
 }
 
