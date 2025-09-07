@@ -14,16 +14,29 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
-resource "aws_route_table" "route" {
+resource "aws_route_table" "public" {
   vpc_id = aws_vpc.vpc.id
 
   route {
-    gateway_id = aws_internet_gateway.igw.id
     cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.igw.id
   }
 
   tags = {
     Name = "${var.name_prefix}-public-rt"
+  }
+}
+
+resource "aws_route_table" "private" {
+  vpc_id = aws_vpc.vpc.id
+
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.test.id
+  }
+
+  tags = {
+    Name = "${var.name_prefix}-private-rt"
   }
 }
 
@@ -76,23 +89,23 @@ resource "aws_subnet" "private2" {
 # Route Table Associations for Public Subnets
 resource "aws_route_table_association" "public1" {
   subnet_id      = aws_subnet.public1.id
-  route_table_id = aws_route_table.route.id
+  route_table_id = aws_route_table.public.id
 }
 
 resource "aws_route_table_association" "public2" {
   subnet_id      = aws_subnet.public2.id
-  route_table_id = aws_route_table.route.id
+  route_table_id = aws_route_table.public.id
 }
 
 # Route Table Associations for Private Subnets
 resource "aws_route_table_association" "private1" {
   subnet_id      = aws_subnet.private1.id
-  route_table_id = aws_route_table.route.id
+  route_table_id = aws_route_table.private.id
 }
 
 resource "aws_route_table_association" "private2" {
   subnet_id      = aws_subnet.private2.id
-  route_table_id = aws_route_table.route.id
+  route_table_id = aws_route_table.private.id
 }
 
 resource "aws_eip" "nat" {
@@ -115,15 +128,15 @@ resource "aws_nat_gateway" "test" {
   depends_on = [aws_internet_gateway.igw]
 }
 
-# Route for Private Subnet → NAT Gateway
-resource "aws_route" "private_nat" {
-  route_table_id         = aws_route_table.route.id
-  destination_cidr_block = var.destination_cidr_block
-  nat_gateway_id         = aws_nat_gateway.test.id
-}
+# # Route for Private Subnet → NAT Gateway
+# resource "aws_route" "private_nat" {
+#   route_table_id         = aws_route_table.route.id
+#   destination_cidr_block = var.destination_cidr_block
+#   nat_gateway_id         = aws_nat_gateway.test.id
+# }
 
 # Subnet Association (Private Subnetに適用)
 resource "aws_route_table_association" "private_assoc" {
   subnet_id      = aws_subnet.private1.id
-  route_table_id = aws_route_table.route.id
+  route_table_id = aws_route_table.private.id
 }

@@ -11,64 +11,32 @@ Terraform を使用して AWS 環境を構築するポートフォリオです�
 ```
 infra-aws-portfolio/
 ├── modules/
-│   ├── vpc/
 │   ├── ec2/
 │   ├── ecs/
-│   ├── alb/
-│   ├── cloudwatch/
-│   └── s3/
-├── cloudformation/
-│   ├── monitoring-stack.yaml  ← SNS + CloudWatch Alarms + Lambda + EventBridge
-│   └── README.md              ← スタック使い方メモ
+│   ├── elb/
+│   ├── s3/
+│   ├── security_group/
+│   ├── sns/
+│   └── vpc/
 ├── environments/
 │   ├── dev/
 │   │   ├── main.tf
 │   │   ├── variables.tf
-│   │   ├── terraform.tfvars
-│   │   └── outputs.tf
+│   │   └── terraform.tfvars
 │   └── prod/
 │       ├── main.tf
 │       ├── variables.tf
-│       ├── terraform.tfvars
-│       └── outputs.tf
+│       └── terraform.tfvars
+├── .gitignore
 ├── backend.tf
 └── providers.tf
 ```
 
-## AWS 構成図（環境ごとに展開）
-```
-+--------------------------------------------------------------+
-|                     AWS Infrastructure (per env)            |
-|                                                              |
-|  +---------------------+           +----------------------+  |
-|  |     Public Subnet   |           |    Private Subnet     | |
-|  |  +----------------+ |           |  +------------------+  | |
-|  |  |     ALB        |<----+      |  |      ECS (Fargate)|  | |
-|  |  +----------------+ |   |      |  +------------------+  | |
-|  +---------------------+   |      |                      |  |
-|                            |      |  +------------------+  | |
-|  +---------------------+   |      |  |      EC2 (Bastion)|  | |
-|  |     S3 (Static Site)|   |      |  +------------------+  | |
-|  +---------------------+   |      +----------------------+  |
-|                            |                                |
-|        +-----------------------------+                      |
-|        |        Lambda (event-based) |                      |
-|        +-----------------------------+                      |
-|                    ↑                                         |
-|         +------------------------+                          |
-|         |   EventBridge (rules)  |                          |
-|         +------------------------+                          |
-|                    ↑                                         |
-|         +------------------------+                          |
-|         |   CloudWatch Alarms    |-------> SNS ------------>|
-|         +------------------------+        (通知:Slack等)    |
-+--------------------------------------------------------------+
-```
-
 ## 使用方法
+environmentsの環境(dev/prod)にてそれぞれplan, applyを実行する。
 
 ## 前提条件
-
-## モジュールの説明
+設定値(IPアドレスや名称、メールアドレス等)は各自の環境に合わせて修正すること。
 
 ## 今後の拡張予定
+cloudwatchやLambda,Eventbridgeなどでセキュリティ監視周りの強化をする予定です。
