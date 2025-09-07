@@ -4,13 +4,28 @@
 # Terraform 状態ファイル
 *.tfstate
 *.tfstate.backup
+*.tfstate.*
 crash.log
+crash.*.log
 
 # Terraform プランファイル
 *.tfplan
 
+# tfvars ファイル
+*.tfvars
+*.tfvars.json
+
 # macOS 隠しファイル
 .DS_Store
+
+# Override ファイル
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Provider binaries (念のため)
+terraform-provider-*
 
 # エディタ・IDE
 *.swp
