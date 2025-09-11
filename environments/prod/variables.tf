@@ -94,3 +94,9 @@ variable "bucket_name" {
   type        = string
   default     = "myproject-logs-prod"
 }
+
+variable "notify_emails" {
+  description = "List of email addresses to receive EC2 state change notifications"
+  type        = list(string)
+  default     = ["okomekome.2121@gmail.com"]
+}

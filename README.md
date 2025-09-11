@@ -14,6 +14,7 @@ infra-aws-portfolio/
 │   ├── ec2/
 │   ├── ecs/
 │   ├── elb/
+│   ├── eventbridge/
 │   ├── s3/
 │   ├── security_group/
 │   ├── sns/
@@ -39,4 +40,4 @@ environmentsの環境(dev/prod)にてそれぞれplan, applyを実行する。
 設定値(IPアドレスや名称、メールアドレス等)は各自の環境に合わせて修正すること。
 
 ## 今後の拡張予定
-cloudwatchやLambda,Eventbridgeなどでセキュリティ監視周りの強化をする予定です。
+cloudwatchやLambdaなどでセキュリティ監視周りの強化をする予定です。
