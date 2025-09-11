@@ -1,5 +1,9 @@
+locals {
+  instance_name = "${var.environment}-ecs-test"
+}
+
 resource "aws_ecs_cluster" "test_ecs" {
-  name = "example-cluster"
+  name = local.instance_name
 }
 
 resource "aws_iam_role" "ecs_task_execution_role" {
@@ -23,7 +27,7 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution" {
 }
 
 resource "aws_ecs_task_definition" "test_ecs" {
-  family                   = "example-task"
+  family                   = "example-task-${var.environment}"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   cpu                      = "256"
@@ -43,7 +47,7 @@ resource "aws_ecs_task_definition" "test_ecs" {
 }
 
 resource "aws_ecs_service" "test_ecs" {
-  name            = "example-service"
+  name            = "test-service-${var.environment}"
   cluster         = aws_ecs_cluster.test_ecs.id
   task_definition = aws_ecs_task_definition.test_ecs.arn
   launch_type     = "FARGATE"

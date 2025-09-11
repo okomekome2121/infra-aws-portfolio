@@ -62,9 +62,18 @@ module "elb" {
   target_ips                 = var.elb_target_ips
 }
 
+# SNS module
 module "sns" {
   source            = "../../modules/sns"
   notification_email = var.notification_email
   environment        = var.environment
   name_suffix        = var.name_suffix
+}
+
+# EventBridge module
+module "rule_ec2_stopped" {
+  source      = "../../modules/eventbridge"
+  name = "ec2-stopped-to-sns"
+  environment = var.environment
+  sns_topic_arn = module.sns.sns_topic_arn
 }

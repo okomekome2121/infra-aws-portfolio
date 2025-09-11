@@ -94,3 +94,4 @@ variable "bucket_name" {
   type        = string
   default     = "myproject-logs-dev"
 }
+
