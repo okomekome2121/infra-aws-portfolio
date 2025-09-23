@@ -31,8 +31,8 @@ module "ec2" {
   environment = var.environment
   ami_id        = var.ami_id
   instance_type = var.instance_type
-  key_name      = var.key_name 
-  subnet_id          = module.vpc.private_subnet_ids[0]
+  key_name      = var.key_name
+  subnet_id     = module.vpc.public_subnet_ids
   security_group_ids = [module.security_group.ec2_sg_id]
 }
 

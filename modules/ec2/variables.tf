@@ -16,7 +16,7 @@ variable "instance_type" {
 
 variable "subnet_id" {
   description = "List of subnet IDs to place instances in"
-  type        = string
+  type        = list(string)
 }
 
 variable "security_group_ids" {
