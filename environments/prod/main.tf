@@ -76,4 +76,16 @@ module "rule_ec2_stopped" {
   name = "ec2-stopped-to-sns"
   environment = var.environment
   sns_topic_arn = module.sns.sns_topic_arn
+  
+}
+
+module "rds" {
+  source                = "../../modules/rds"
+  db_identifier         = "prod-rds"
+  username              = "admin"
+  password              = var.db_password
+  vpc_security_group_ids = [module.security_group.rds_sg_id]
+  db_subnet_group_name   = var.db_subnet_group_name
+  project               = "myapp"
+  environment           = var.environment
 }

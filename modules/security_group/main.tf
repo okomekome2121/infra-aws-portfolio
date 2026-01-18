@@ -60,3 +60,29 @@ resource "aws_security_group" "ec2_sg" {
     Environment = var.environment
   }
 }
+
+resource "aws_security_group" "rds_sg" {
+  name        = "${var.name}-rds-sg"
+  description = "Security group for RDS instances"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = var.ingress_cidr_blocks
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = var.egress_cidr_blocks
+  }
+
+  tags = {
+    Name        = "${var.name}-rds-sg"
+    Environment = var.environment
+  }
+}
+

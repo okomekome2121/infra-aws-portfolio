@@ -69,3 +69,14 @@ module "elb" {
 #   name_suffix        = var.task_role_arn
 #   # instance_ids = []  # 全EC2監視（デフォルト）
 # }
+
+module "rds" {
+  source                = "../../modules/rds"
+  db_identifier         = "dev-rds"
+  username              = "admin"
+  password              = var.db_password
+  vpc_security_group_ids = [module.security_group.rds_sg_id]
+  db_subnet_group_name   = var.db_subnet_group_name
+  project               = "myapp"
+  environment           = "dev"
+}

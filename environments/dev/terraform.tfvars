@@ -20,3 +20,6 @@ container_image    = "nginx:latest"
 # SNS Configuration
 #topic_name  = "dev-test"
 # name_suffix = "test"
+
+db_password           = "DevPassword123!"
+db_subnet_group_name  = "myapp-dev-subnet-group"
