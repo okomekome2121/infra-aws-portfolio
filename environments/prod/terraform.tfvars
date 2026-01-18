@@ -21,5 +21,5 @@ container_image    = "nginx:latest"
 # name_suffix = "test"
 # topic_name  = "prod-test"
 
-db_password           = "ProdPassword123!"
-db_subnet_group_name  = "myapp-prod-subnet-group"
+# db_password           = "ProdPassword123!"
+# db_subnet_group_name  = "myapp-prod-subnet-group"

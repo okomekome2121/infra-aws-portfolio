@@ -1,3 +1,7 @@
+locals {
+  db_name = "${var.environment}-test"
+}
+
 resource "aws_db_instance" "test" {
   identifier              = var.db_identifier
   allocated_storage       = var.allocated_storage
