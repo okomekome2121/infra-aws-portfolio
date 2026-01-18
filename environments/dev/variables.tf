@@ -95,3 +95,15 @@ variable "bucket_name" {
   default     = "myproject-logs-dev"
 }
 
+# RDS Configuration
+variable "db_password" {
+  description = "The password for the RDS instance"
+  type        = string
+  sensitive   = true
+  
+}
+
+variable "db_subnet_group_name" {
+  description = "The DB subnet group name for the RDS instance"
+  type        = string
+}

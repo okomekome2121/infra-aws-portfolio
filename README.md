@@ -15,6 +15,7 @@ infra-aws-portfolio/
 │   ├── ecs/
 │   ├── elb/
 │   ├── eventbridge/
+│   ├── rds/
 │   ├── s3/
 │   ├── security_group/
 │   ├── sns/
