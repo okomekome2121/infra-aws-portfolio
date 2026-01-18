@@ -102,14 +102,14 @@ variable "notify_emails" {
 }
 
 # RDS Configuration
-variable "db_password" {
-  description = "The password for the RDS instance"
-  type        = string
-  sensitive   = true
+# variable "db_password" {
+#   description = "The password for the RDS instance"
+#   type        = string
+#   sensitive   = true
   
-}
+# }
 
-variable "db_subnet_group_name" {
-  description = "The DB subnet group name for the RDS instance"
-  type        = string
-}
+# variable "db_subnet_group_name" {
+#   description = "The DB subnet group name for the RDS instance"
+#   type        = string
+# }
