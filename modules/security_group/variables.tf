@@ -9,13 +9,13 @@ variable "vpc_id" {
 }
 
 variable "ingress_cidr_blocks" {
-  description = "Allowed CIDR blocks for ALB ingress"
+  description = "Allowed CIDR blocks for EC2 ingress"
   type        = list(string)
   default     = ["0.0.0.0/0"]
 }
 
 variable "egress_cidr_blocks" {
-  description = "Allowed CIDR blocks for ALB egress"
+  description = "Allowed CIDR blocks for EC2 egress"
   type        = list(string)
   default     = ["0.0.0.0/0"]
 }
