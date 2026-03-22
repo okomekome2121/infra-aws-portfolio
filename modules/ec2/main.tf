@@ -13,7 +13,8 @@ resource "aws_instance" "default" {
 
   ebs_block_device {
     device_name = "/dev/xvdb"
-    volume_size = 20
+    # volume_size = 20 # Linux volume
+    volume_size = 30 # Windows volume
     volume_type = "gp3"
     encrypted   = true
   }

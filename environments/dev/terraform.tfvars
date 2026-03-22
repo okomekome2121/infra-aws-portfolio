@@ -8,7 +8,8 @@ private_subnet_cidrs = ["10.0.11.0/24", "10.0.12.0/24"]
 availability_zones = ["ap-northeast-1a", "ap-northeast-1c"]
 
 # EC2 Instance Configuration
-ami_id        = "ami-01ead1eca9a200e01"
+# ami_id        = "ami-088b486f20fab3f0e" # Amazon Linux
+ami_id        = "ami-0ffac53afaf6a405e" # Windows
 instance_type = "t3.micro"
 key_name      = "test_okome_ec2"
 
